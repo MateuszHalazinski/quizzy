@@ -13,6 +13,6 @@ class EnsureUserIsAdmin
         if (! $request->user()?->is_admin) {
         abort(403, 'Brak dostępu – ta strona jest tylko dla administratora.');
         }
-        return $next($request);
+        return $next($request); //przepuszczanie żadania do apki
     }
 }
