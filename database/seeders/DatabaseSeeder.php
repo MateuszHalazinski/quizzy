@@ -28,5 +28,6 @@ class DatabaseSeeder extends Seeder
         ]);
 
         User::factory(8)->create();
+        $this->call(QuizSeeder::class);
     }
 }

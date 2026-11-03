@@ -11,6 +11,8 @@
     <div class="max-w-5xl mx-auto px-4 py-3 flex gap-6">
         <span class="font-bold">Panel admina</span>
         <a href="{{ route('admin.users.index') }}" class="hover:underline">Użytkownicy</a>
+        <a href="{{ route('admin.categories.index') }}" class="hover:underline">Kategorie</a>
+        <a href="{{ route('admin.quizzes.index') }}" class="hover:underline">Quizy</a>
 
         @auth
             <div class="ml-auto flex items-center gap-4">
