@@ -43,7 +43,7 @@
                         <a href="{{ route('admin.quizzes.show', $quiz) }}" class="text-blue-600 hover:underline mr-3">Pytania</a>
                         <a href="{{ route('admin.quizzes.edit', $quiz) }}"
                            class="text-blue-600 hover:underline">Edytuj</a>
-
+                        <a href="{{ route('admin.quizzes.results', $quiz) }}" class="text-blue-600 hover:underline mr-3">Wyniki</a>  
                         <form method="POST" action="{{ route('admin.quizzes.destroy', $quiz) }}" class="inline"
                               onsubmit="return confirm('Usunąć quiz? Zostaną usunięte również wszystkie jego pytania!')">
                             @csrf

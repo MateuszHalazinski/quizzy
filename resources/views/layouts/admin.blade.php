@@ -13,6 +13,7 @@
         <a href="{{ route('admin.users.index') }}" class="hover:underline">Użytkownicy</a>
         <a href="{{ route('admin.categories.index') }}" class="hover:underline">Kategorie</a>
         <a href="{{ route('admin.quizzes.index') }}" class="hover:underline">Quizy</a>
+        <a href="{{ route('quizzes.index') }}" class="hover:underline">Strona quizów</a>
 
         @auth
             <div class="ml-auto flex items-center gap-4">

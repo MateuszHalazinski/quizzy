@@ -20,6 +20,10 @@
                class="bg-gray-200 px-4 py-2 rounded hover:bg-gray-300 whitespace-nowrap">
                 Edytuj quiz
             </a>
+            <a href="{{ route('admin.quizzes.results', $quiz) }}"
+                class="bg-gray-200 px-4 py-2 rounded hover:bg-gray-300 whitespace-nowrap">
+                Wyniki
+            </a>
         </div>
 
         <dl class="flex flex-wrap gap-8 mt-4 text-sm">
@@ -57,10 +61,16 @@
     {{-- ===== Pytania i odpowiedzi ===== --}}
     <div class="flex items-center justify-between mb-4">
     <h2 class="text-xl font-bold">Pytania</h2>
-    <a href="{{ route('admin.quizzes.questions.create', $quiz) }}"
-       class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
-        + Dodaj pytanie
-    </a>
+        <div class="flex gap-2">
+            <a href="{{ route('admin.quizzes.questions.create', ['quiz' => $quiz, 'type' => 'single_choice']) }}"
+            class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+                + Pytanie A–D
+            </a>
+            <a href="{{ route('admin.quizzes.questions.create', ['quiz' => $quiz, 'type' => 'text']) }}"
+            class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+                + Pytanie z wpisaniem
+            </a>
+        </div>
     </div>
 
     @forelse ($quiz->questions as $question)
@@ -69,6 +79,7 @@
                 <h3 class="font-semibold">
                     {{ $loop->iteration }}. {{ $question->content }}
                 </h3>
+                <p class="text-xs text-gray-500 mb-2">{{ $question->type->label() }}</p>
                 <div class="whitespace-nowrap text-sm">
                     <a href="{{ route('admin.questions.edit', $question) }}"
                     class="text-blue-600 hover:underline">Edytuj</a>

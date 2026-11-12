@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use App\Enums\QuestionType;
 
 class Question extends Model
 {
@@ -15,8 +16,15 @@ class Question extends Model
         return $this->belongsTo(Quiz::class);
     }
 
-    public function answers(): HasMany
+   public function answers(): HasMany
     {
-        return $this->hasMany(Answer::class);
+        return $this->hasMany(Answer::class)->orderBy('id');
+    }
+
+    protected function casts(): array
+    {
+        return [
+            'type' => QuestionType::class,
+        ];
     }
 }

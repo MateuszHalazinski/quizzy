@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 #[Fillable(['name', 'username', 'password', 'is_admin'])]
 #[Hidden(['password', 'remember_token'])]
@@ -28,5 +29,10 @@ class User extends Authenticatable
             'password' => 'hashed',
             'is_admin' => 'boolean',
         ];
+    }
+
+    public function attempts(): HasMany
+    {
+        return $this->hasMany(Attempt::class);
     }
 }
