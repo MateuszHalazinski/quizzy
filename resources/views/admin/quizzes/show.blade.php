@@ -16,14 +16,16 @@
                     <p class="text-gray-600 mt-2">{{ $quiz->description }}</p>
                 @endif
             </div>
-            <a href="{{ route('admin.quizzes.edit', $quiz) }}"
-               class="bg-gray-200 px-4 py-2 rounded hover:bg-gray-300 whitespace-nowrap">
-                Edytuj quiz
-            </a>
-            <a href="{{ route('admin.quizzes.results', $quiz) }}"
+            <div class="flex gap-2">
+                <a href="{{ route('admin.quizzes.edit', $quiz) }}"
                 class="bg-gray-200 px-4 py-2 rounded hover:bg-gray-300 whitespace-nowrap">
-                Wyniki
-            </a>
+                    Edytuj quiz
+                </a>
+                <a href="{{ route('admin.quizzes.results', $quiz) }}"
+                class="bg-gray-200 px-4 py-2 rounded hover:bg-gray-300 whitespace-nowrap">
+                    Wyniki
+                </a>
+            </div>
         </div>
 
         <dl class="flex flex-wrap gap-8 mt-4 text-sm">
@@ -76,10 +78,12 @@
     @forelse ($quiz->questions as $question)
         <div class="bg-white p-5 rounded shadow mb-4">
            <div class="flex items-start justify-between gap-4 mb-3">
-                <h3 class="font-semibold">
+             <div>
+                 <h3 class="font-semibold">
                     {{ $loop->iteration }}. {{ $question->content }}
                 </h3>
                 <p class="text-xs text-gray-500 mb-2">{{ $question->type->label() }}</p>
+             </div>
                 <div class="whitespace-nowrap text-sm">
                     <a href="{{ route('admin.questions.edit', $question) }}"
                     class="text-blue-600 hover:underline">Edytuj</a>
