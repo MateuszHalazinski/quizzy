@@ -7,7 +7,6 @@ use App\Models\Quiz;
 
 class ResultController extends Controller
 {
-    // GET /admin/quizzes/{quiz}/results – wszystkie zakończone podejścia do quizu
     public function index(Quiz $quiz)
     {
         $attempts = $quiz->attempts()

@@ -76,7 +76,7 @@ class UserController extends Controller
     }
 
 
-    public function destroy(User $user)
+    public function destroy(Request $request, User $user)
     {
         if ($user->is($request->user())) {
         return back()->with('error', 'Nie możesz usunąć własnego konta.');

@@ -64,11 +64,11 @@
     <div class="flex items-center justify-between mb-4">
     <h2 class="text-xl font-bold">Pytania</h2>
         <div class="flex gap-2">
-            <a href="{{ route('admin.quizzes.questions.create', ['quiz' => $quiz, 'type' => 'single_choice']) }}"
+           <a href="{{ route('admin.quizzes.choice-questions.create', $quiz) }}"
             class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
                 + Pytanie A–D
             </a>
-            <a href="{{ route('admin.quizzes.questions.create', ['quiz' => $quiz, 'type' => 'text']) }}"
+            <a href="{{ route('admin.quizzes.text-questions.create', $quiz) }}"
             class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
                 + Pytanie z wpisaniem
             </a>
@@ -84,15 +84,26 @@
                 </h3>
                 <p class="text-xs text-gray-500 mb-2">{{ $question->type->label() }}</p>
              </div>
-                <div class="whitespace-nowrap text-sm">
-                    <a href="{{ route('admin.questions.edit', $question) }}"
-                    class="text-blue-600 hover:underline">Edytuj</a>
-                    <form method="POST" action="{{ route('admin.questions.destroy', $question) }}" class="inline"
-                        onsubmit="return confirm('Usunąć to pytanie razem z odpowiedziami?')">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="text-red-600 hover:underline ml-3">Usuń</button>
-                    </form>
+               <div class="whitespace-nowrap text-sm">
+                    @if ($question->type === \App\Enums\QuestionType::SingleChoice)
+                        <a href="{{ route('admin.choice-questions.edit', $question) }}"
+                        class="text-blue-600 hover:underline">Edytuj</a>
+                        <form method="POST" action="{{ route('admin.choice-questions.destroy', $question) }}" class="inline"
+                            onsubmit="return confirm('Usunąć to pytanie razem z odpowiedziami?')">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="text-red-600 hover:underline ml-3">Usuń</button>
+                        </form>
+                    @else
+                        <a href="{{ route('admin.text-questions.edit', $question) }}"
+                        class="text-blue-600 hover:underline">Edytuj</a>
+                        <form method="POST" action="{{ route('admin.text-questions.destroy', $question) }}" class="inline"
+                            onsubmit="return confirm('Usunąć to pytanie razem z odpowiedziami?')">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="text-red-600 hover:underline ml-3">Usuń</button>
+                        </form>
+                    @endif
                 </div>
             </div>
 

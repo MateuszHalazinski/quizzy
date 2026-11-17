@@ -27,6 +27,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::resource('users', Admin\UserController::class)->except('show');
     Route::resource('categories', Admin\CategoryController::class)->except('show');
     Route::resource('quizzes', Admin\QuizController::class);
-    Route::resource('quizzes.questions', Admin\QuestionController::class)->shallow()->except(['index', 'show']);
+    Route::resource('quizzes.choice-questions', Admin\ChoiceQuestionController::class)->parameters(['choice-questions' => 'question'])->shallow()->except(['index', 'show']);
+    Route::resource('quizzes.text-questions', Admin\TextQuestionController::class)->parameters(['text-questions' => 'question'])->shallow()->except(['index', 'show']);
     Route::get('quizzes/{quiz}/results', [Admin\ResultController::class, 'index'])->name('quizzes.results');
 });

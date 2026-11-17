@@ -19,19 +19,16 @@ class Attempt extends Model
         ];
     }
 
-    // Podejście należy do użytkownika
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
-    // Podejście dotyczy quizu
     public function quiz(): BelongsTo
     {
         return $this->belongsTo(Quiz::class);
     }
 
-    // Podejście ma wiele udzielonych odpowiedzi
     public function answers(): HasMany
     {
         return $this->hasMany(AttemptAnswer::class);
