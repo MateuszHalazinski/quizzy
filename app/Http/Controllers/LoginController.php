@@ -38,7 +38,7 @@ class LoginController extends Controller
     {
         Auth::logout();
 
-        $request->session()->invalidate();
+        $request->session()->invalidate(); //kasuje całą sesję i daje nowy identyfikator sesji, z tokenem csrf
         $request->session()->regenerateToken();
 
         return redirect()->route('login');

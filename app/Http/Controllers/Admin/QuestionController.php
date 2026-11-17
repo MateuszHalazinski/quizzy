@@ -13,7 +13,6 @@ use Illuminate\Validation\ValidationException;
 
 class QuestionController extends Controller
 {
-    // GET /admin/quizzes/{quiz}/questions/create?type=text – formularz nowego pytania
     public function create(Request $request, Quiz $quiz)
     {
         $question = new Question;
@@ -22,7 +21,6 @@ class QuestionController extends Controller
         return view('admin.questions.create', compact('quiz', 'question'));
     }
 
-    // POST /admin/quizzes/{quiz}/questions – zapis nowego pytania
     public function store(Request $request, Quiz $quiz)
     {
         $request->validate([
@@ -49,7 +47,6 @@ class QuestionController extends Controller
             ->with('success', 'Pytanie zostało dodane.');
     }
 
-    // GET /admin/questions/{question}/edit – formularz edycji
     public function edit(Question $question)
     {
         $quiz = $question->quiz;
@@ -57,7 +54,6 @@ class QuestionController extends Controller
         return view('admin.questions.edit', compact('quiz', 'question'));
     }
 
-    // PUT /admin/questions/{question} – zapis zmian (typu pytania nie zmieniamy)
     public function update(Request $request, Question $question)
     {
         $request->validate([
@@ -79,7 +75,6 @@ class QuestionController extends Controller
             ->with('success', 'Pytanie zostało zapisane.');
     }
 
-    // DELETE /admin/questions/{question} – usunięcie pytania
     public function destroy(Question $question)
     {
         $quiz = $question->quiz;
@@ -93,7 +88,6 @@ class QuestionController extends Controller
 
     // ===== Metody pomocnicze =====
 
-    // Wybiera sposób sprawdzania odpowiedzi według typu pytania
     private function answerSlots(Request $request, QuestionType $type): array
     {
         return match ($type) {
@@ -102,7 +96,6 @@ class QuestionController extends Controller
         };
     }
 
-    // Typ A–D: 2–4 odpowiedzi, dokładnie jedna poprawna
     private function choiceSlots(Request $request): array
     {
         $request->validate([
@@ -132,7 +125,6 @@ class QuestionController extends Controller
             throw ValidationException::withMessages(['correct' => 'Zaznaczona poprawna odpowiedź jest pusta.']);
         }
 
-        // 4 pozycje A–D: dane odpowiedzi albo null (puste pole)
         $slots = [];
 
         for ($i = 0; $i < 4; $i++) {
@@ -144,7 +136,6 @@ class QuestionController extends Controller
         return $slots;
     }
 
-    // Typ „wpisanie”: 1–4 akceptowane odpowiedzi, wszystkie poprawne
     private function textSlots(Request $request): array
     {
         $request->validate([
@@ -172,7 +163,6 @@ class QuestionController extends Controller
         return $slots;
     }
 
-    // Zapis odpowiedzi pozycja po pozycji: aktualizuj / usuń / utwórz (logika z kroku 7)
     private function syncAnswers(Question $question, array $slots): void
     {
         $existing = $question->answers()->orderBy('id')->get();

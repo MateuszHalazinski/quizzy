@@ -16,7 +16,6 @@ class ResultController extends Controller
             ->latest('finished_at')
             ->get();
 
-        // Podsumowanie (null, gdy nikt jeszcze nie rozwiązał)
         $average = $attempts->isNotEmpty()
             ? (int) round($attempts->avg(fn ($attempt) => $attempt->percent()))
             : null;
