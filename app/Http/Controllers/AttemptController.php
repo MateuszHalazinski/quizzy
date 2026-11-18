@@ -122,18 +122,30 @@ class AttemptController extends Controller
             }
 
             if ($question->type === QuestionType::Text) {
-                $text = is_string($value) ? trim($value) : '';
+                if (is_string($value)) { 
+                    $text = trim($value);       
+                } else {
+                    $text = '';             
+                }
 
-                $answer = $text === ''
-                    ? null
-                    : $question->answers->first(
-                        fn ($accepted) => mb_strtolower(trim($accepted->content)) === mb_strtolower($text)
-                    );
+                $answer = null;              
 
-                $rows[] = [
-                    'question_id' => $question->id,
-                    'answer_id' => $answer?->id,
-                    'text_answer' => $text !== '' ? $text : null,
+                if ($text !== '') {           
+                    foreach ($question->answers as $accepted) {       
+                        $acceptedText = mb_strtolower(trim($accepted->content));  
+                        $userText = mb_strtolower($text);                      
+
+                        if ($acceptedText === $userText) {               
+                            $answer = $accepted;                         
+                            break;                                      
+                        }
+                    }
+                }
+
+                $rows[] = [ 
+                    'question_id' => $question->id, 
+                    'answer_id' => $answer?->id, 
+                    'text_answer' => $text !== '' ? $text : null, 
                 ];
             } 
             else 
